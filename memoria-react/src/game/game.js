@@ -102,6 +102,26 @@ shuffleCards: function(cards) {
 
         [this.cards[randomIndex], this.cards[currentIndex]] = [this.cards[currentIndex], this.cards[randomIndex]]
     }
+},
+
+flipCard: function(cardId, gameOverCallBack, noMatchCallBack){
+    if(this.setCard(cardId)){
+        if(this.secondCard){
+            if (this.checkMatch()){
+                this.clearCards()
+                if (this.checkGameOver()) {
+                    //game over
+                    gameOverCallBack()
+                }
+            }else{
+                setTimeout(()=>{
+                    //no match
+                        this.unflipCards()
+                       noMatchCallBack() 
+                },1000)
+            }
+        }
+     }
 }
 
 }
